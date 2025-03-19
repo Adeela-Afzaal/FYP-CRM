@@ -1,0 +1,95 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\7th semester\\FYP\\updated ui\\PythonApplication1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7EE1FD05-CC45-45E3-A1BA-716D8053E74E}|PythonApplication1.pyproj|D:\\7th semester\\FYP\\updated ui\\PythonApplication1\\instaPosting.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{7EE1FD05-CC45-45E3-A1BA-716D8053E74E}|PythonApplication1.pyproj|solutionrelative:instaPosting.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EE1FD05-CC45-45E3-A1BA-716D8053E74E}|PythonApplication1.pyproj|D:\\7th semester\\FYP\\updated ui\\PythonApplication1\\PythonApplication1.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{7EE1FD05-CC45-45E3-A1BA-716D8053E74E}|PythonApplication1.pyproj|solutionrelative:PythonApplication1.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EE1FD05-CC45-45E3-A1BA-716D8053E74E}|PythonApplication1.pyproj|D:\\7th semester\\FYP\\updated ui\\PythonApplication1\\.env||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{7EE1FD05-CC45-45E3-A1BA-716D8053E74E}|PythonApplication1.pyproj|solutionrelative:.env||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": ".env",
+              "DocumentMoniker": "D:\\7th semester\\FYP\\updated ui\\PythonApplication1\\.env",
+              "RelativeDocumentMoniker": ".env",
+              "ToolTip": "D:\\7th semester\\FYP\\updated ui\\PythonApplication1\\.env",
+              "RelativeToolTip": ".env",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-15T16:13:50.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "instaPosting.py",
+              "DocumentMoniker": "D:\\7th semester\\FYP\\updated ui\\PythonApplication1\\instaPosting.py",
+              "RelativeDocumentMoniker": "instaPosting.py",
+              "ToolTip": "D:\\7th semester\\FYP\\updated ui\\PythonApplication1\\instaPosting.py",
+              "RelativeToolTip": "instaPosting.py",
+              "ViewState": "AQIAAMAAAAAAAAAAAAAUwNYAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2025-02-15T15:59:27.747Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PythonApplication1.py",
+              "DocumentMoniker": "D:\\7th semester\\FYP\\updated ui\\PythonApplication1\\PythonApplication1.py",
+              "RelativeDocumentMoniker": "PythonApplication1.py",
+              "ToolTip": "D:\\7th semester\\FYP\\updated ui\\PythonApplication1\\PythonApplication1.py",
+              "RelativeToolTip": "PythonApplication1.py",
+              "ViewState": "AQIAAA4BAAAAAAAAAAAIwBkBAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2024-11-02T20:32:40.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
