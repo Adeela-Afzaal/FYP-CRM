@@ -1,0 +1,555 @@
+﻿
+<style>
+    /* Main container */
+    .container1 {
+        margin-top: 50px;
+        max-width: 1500px;
+        height: max-content;
+        transition: width 0.3s ease;
+    }
+
+    /* Tab navigation buttons */
+    .nav {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+
+        .nav button {
+            width: 150px;
+            padding: 10px ;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background-color: #e4e6eb;
+            color: #1c1e21;
+            border-radius: 5px;
+            margin-bottom:10px;
+            transition: background-color 0.3s ease;
+        }
+
+            .nav button.active {
+                background-color: #1877f2;
+                color: white;
+            }
+
+    /* Content sections */
+    .content1 {
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        padding: 20px;
+    }
+
+    .section {
+        display: none;
+    }
+
+        .section.active {
+            display: block;
+        }
+
+    /* Stories */
+    /* Create Story text */
+
+    /* Content sections */
+    .content1 {
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        padding: 20px;
+    }
+
+    .section {
+        display: none; /* Hide all sections by default */
+    }
+
+        .section.active {
+            display: block; /* Show only the active section */
+        }
+
+    /* Sidebar and content alignment */
+    .container {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    /* Sidebar for profile and Create Story */
+    .sidebar {
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10px;
+        margin-right: 20px;
+    }
+
+    /* Profile image */
+    .profile-img {
+        width: 100px;
+        height: 140px;
+        background-color: #a8d5a3;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        color: #ffffff;
+        font-weight: bold;
+        position: relative;
+    }
+
+    /* Plus icon circle */
+    .plus-icon {
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 24px;
+        background-color: white;
+        border: 2px solid #1877f2;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1877f2;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Create Story text */
+    .create-story {
+        margin-top: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        color: #1c1e21;
+    }
+
+    /* Content area styling */
+    .content {
+        flex-grow: 1;
+        text-align: left;
+    }
+
+    .no-stories-title {
+        font-weight: bold;
+        font-size: 18px;
+        color: #606770;
+    }
+
+    .no-stories-text {
+        font-size: 14px;
+        color: #606770;
+    }
+
+    .see-all-stories {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px 0;
+        font-size: 14px;
+        font-weight: bold;
+        color: #1877f2;
+        border-top: 1px solid #ddd;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    /* Posts and reels section styling */
+    .posts-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .posts-image {
+        width: 200px;
+        height: 200px;
+        background-color: #f0f2f5;
+        border-radius: 10px;
+        margin-right: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .posts-image::before {
+            content: "📷"; /* Placeholder for image */
+            font-size: 80px;
+            color: #d3d3d3;
+        }
+
+    .posts-content {
+        text-align: left;
+    }
+
+    .no-posts-title {
+        font-weight: bold;
+        font-size: 18px;
+        color: #1c1e21;
+    }
+
+    .no-posts-text {
+        font-size: 14px;
+        color: #606770;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+
+    .posts-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .create-post-button, .see-all-posts-button {
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #ffffff;
+        color: #1c1e21;
+    }
+
+    .create-post-button:hover, .see-all-posts-button:hover {
+        background-color: #f0f2f5;
+    }
+
+    .dropdown-arrow {
+        margin-left: 5px;}
+
+   /*  planner */
+
+    .container1
+    {
+        margin: 50px auto;
+        max-width:   500px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .image {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    .text {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+          border-radius: 5px;
+    }
+
+    }
+</style>
+
+<div class="container1" id="mainContainer">
+    <!-- Content Sections -->
+    <div class="content1">
+        <!-- Navigation Tabs -->
+        <div class="nav">
+            <button id="plannerBtn" onclick="showSection('planner', '1000px')">Planner</button>
+            <button id="postsBtn" onclick="showSection('posts', '1200px')" class="active">Posts & reels</button>
+            <button id="storiesBtn" onclick="showSection('stories', '800px')">Stories</button>
+        </div>
+
+        <!-- Planner Section -->
+        <div id="planner" class="section" style="margin-top:20px;>
+            <div class="container">
+                <img src="/images/reels.png"  
+                     alt="No Scheduled Posts" class="image">
+                <p class="text">No scheduled posts or stories to show for this week. Schedule a post or schedule a story to plan ahead.</p>
+                <a href="#" class="button">See Planner</a>
+            </div>
+        </div>
+
+        <!-- Posts Section -->
+        <div id="posts" class="section active">
+            <div class="posts-container">
+                <!-- Placeholder for the image on the left -->
+                <div class="posts-image"></div>
+
+                <!-- Text content on the right -->
+                <div class="posts-content" >
+                    <div class="no-posts-title">No posts or reels created in the last 60 days</div>
+                    <div class="no-posts-text">
+                        Posting regularly helps you connect with your audience.
+                    </div>
+                    <div class="posts-buttons">
+                        <button class="create-post-button">
+                            Create post <span class="dropdown-arrow">▼</span>
+                        </button>
+                        <button class="see-all-posts-button">See all posts and reels</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Stories Section -->
+        <div id="stories" class="section">
+            <div class="container">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="profile-img">D</div>
+                    <div class="create-story">Create Story</div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="content">
+                    <div class="no-stories-title">No recent stories</div>
+                    <div class="no-stories-text">
+                        You haven't shared a story to Facebook in <b>14 days</b>.
+                        <br>Sharing regularly helps you connect with the people
+                        who follow Demo Business Manager.
+                    </div>
+                    <a href="#" class="see-all-stories">See All Stories</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function showSection(sectionId, newWidth) {
+        // Hide all sections and remove active class from buttons
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+
+        document.querySelectorAll('.nav button').forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Show the selected section and highlight the active button
+        document.getElementById(sectionId).classList.add('active');
+        document.getElementById(sectionId + 'Btn').classList.add('active');
+
+        // Change container width based on the selected tab
+        document.getElementById('mainContainer').style.width = newWidth;
+    }
+</script>
+
+@* @page "/tab"
+<style>
+    /* Main container */
+    .container1 {
+        margin-top: 50px;
+        width: 1000px;
+        height: max-content;
+        transition: width 0.3s ease; /* Smooth width transition */
+    }
+
+    /* Tab navigation buttons */
+    .nav {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+
+        .nav button {
+            width: 150px; /* Set all buttons to the same width */
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background-color: #e4e6eb;
+            color: #1c1e21;
+            border-radius: 5px;
+        }
+
+            .nav button.active {
+                background-color: #1877f2;
+                color: white;
+            }
+
+    /* Content sections */
+    .content1 {
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        padding: 20px;
+    }
+
+    .section {
+        display: none; /* Hide all sections by default */
+    }
+
+        .section.active {
+            display: block; /* Show only the active section */
+        }
+
+    /* Sidebar and content alignment */
+    .container {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    /* Sidebar for profile and Create Story */
+    .sidebar {
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10px;
+        margin-right: 20px;
+    }
+
+    /* Profile image */
+    .profile-img {
+        width: 100px;
+        height: 140px;
+        background-color: #a8d5a3;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        color: #ffffff;
+        font-weight: bold;
+        position: relative;
+    }
+
+    /* Plus icon circle */
+    .plus-icon {
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 24px;
+        background-color: white;
+        border: 2px solid #1877f2;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1877f2;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Create Story text */
+    .create-story {
+        margin-top: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        color: #1c1e21;
+    }
+
+    /* Content area styling */
+    .content {
+        flex-grow: 1;
+        text-align: left;
+    }
+
+    .no-stories-title {
+        font-weight: bold;
+        font-size: 18px;
+        color: #606770;
+    }
+
+    .no-stories-text {
+        font-size: 14px;
+        color: #606770;
+    }
+
+    .see-all-stories {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px 0;
+        font-size: 14px;
+        font-weight: bold;
+        color: #1877f2;
+        border-top: 1px solid #ddd;
+        width: 100%;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container1" id="mainContainer">
+    <!-- Content Sections -->
+    <div class="content1">
+        <!-- Navigation Tabs -->
+        <div class="nav">
+            <button id="plannerBtn" onclick="showSection('planner', '1000px')">Planner</button>
+            <button id="postsBtn" onclick="showSection('posts', '1200px')">Posts and reels</button>
+            <button id="storiesBtn" onclick="showSection('stories', '800px')">Stories</button>
+        </div>
+
+        <!-- Planner Section -->
+        <div id="planner" class="section active">
+            <h2>November 2024</h2>
+            <p>No scheduled posts or stories to show for this week.</p>
+            <button>Schedule Post</button>
+        </div>
+
+        <!-- Posts Section -->
+        <div id="posts" class="section">
+            <h2>Posts and Reels</h2>
+            <p>Here you can see all your posts and reels.</p>
+        </div>
+
+        <!-- Stories Section -->
+        <div id="stories" class="section">
+            <div class="container">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="profile-img">D</div>
+                    <div class="create-story">Create Story</div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="content">
+                    <div class="no-stories-title">No recent stories</div>
+                    <div class="no-stories-text">
+                        You haven't shared a story to Facebook in <b>14 days</b>.
+                        <br>Sharing regularly helps you connect with the people
+                        who follow Demo Business Manager.
+                    </div>
+                    <a href="#" class="see-all-stories">See All Stories</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showSection(sectionId, newWidth) {
+        // Hide all sections and remove active class from buttons
+        const sections = document.querySelectorAll('.section');
+        const buttons = document.querySelectorAll('.nav button');
+
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+
+        buttons.forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Show the selected section and highlight the active button
+        document.getElementById(sectionId).classList.add('active');
+        document.getElementById(sectionId + 'Btn').classList.add('active');
+
+        // Change container width based on the selected tab
+        document.getElementById('mainContainer').style.width = newWidth;
+    }
+</script>
+ *@

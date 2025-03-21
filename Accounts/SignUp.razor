@@ -1,0 +1,169 @@
+﻿@page "/signup"
+@using System.ComponentModel.DataAnnotations
+@using BlazorApp_Meta_UI.Models
+@using BlazorApp_Meta_UI.Services
+@inject Authentication authService
+@inject NavigationManager nv
+
+<div class="d-flex align-items-center justify-content-center ">
+    <div class="card shadow-lg border-0" style="width: 400px; border-radius: 15px;">
+        <div class="card-body p-5">
+            <h3 class="text-center mb-4 p-3 bg-light rounded d-none d-md-block"
+                style="white-space: nowrap; color: #ebe6fa; -webkit-text-stroke: 1px #654ea3;">
+                Create Account
+            </h3>
+            <p class="text-center text-muted mb-4">Sign up to get started</p>
+
+            <EditForm Model="@signupModel" OnValidSubmit="@HandleSignup">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <!-- Name Input -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <InputText id="name" class="form-control shadow-sm" @bind-Value="signupModel.Name" placeholder="Enter your name" />
+                </div>
+
+                <!-- Email Input -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <InputText id="email" class="form-control shadow-sm" @bind-Value="signupModel.Email" placeholder="Enter your email" />
+                </div>
+
+                <!-- Password Input -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <InputText id="password"
+                                   type="@PasswordInputType"
+                                   class="form-control shadow-sm"
+                                   @bind-Value="signupModel.Password"
+                                   placeholder="Enter your password" />
+                        <button type="button" class="btn btn-outline-secondary" @onclick="TogglePasswordVisibility">
+                            <i class="bi @PasswordToggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Confirm Password Input -->
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <InputText id="confirmPassword" type="password" class="form-control shadow-sm" @bind-Value="signupModel.ConfirmPassword" placeholder="Re-enter your password" />
+                </div>
+
+                <!-- Sign Up Button -->
+                <button type="submit" class="btn gradient-btn-light w-100 rounded-pill shadow-sm mt-3">Sign Up</button>
+            </EditForm>
+
+            <!-- Divider -->
+            <div class="text-center my-3">
+                <span class="text-muted">Or sign up with:</span>
+            </div>
+
+            <!-- Google Button -->
+            <button class="btn gradient-btn-light w-100 rounded-pill shadow-sm">
+                <i class="bi bi-google"></i> Continue with Google
+            </button>
+
+            <!-- Links -->
+            <div class="text-center mt-4">
+                <a href="/login" class="text-decoration-none text-primary">Already have an account? Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+        border-radius: 15px; /* Smooth corners */
+        border: none;
+        padding: 20px; /* Optional padding for inner spacing */
+        overflow: hidden; /* Prevent content overflow */
+    }
+
+    .btn {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .gradient-btn-light {
+        background: linear-gradient(to right, #fbc2eb, #a6c1ee); /* Pink to light blue gradient */
+        color: white;
+        border: none;
+    }
+
+        .gradient-btn-light:hover {
+            background: linear-gradient(to right, #a6c1ee, #fbc2eb); /* Reverse gradient on hover */
+            color: white;
+        }
+
+    .input-group .btn {
+        border-radius: 0 5px 5px 0;
+    }
+
+    input {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+
+    .text-muted {
+        font-size: 0.9rem;
+    }
+</style>
+
+@code {
+    private SignUpModel signupModel = new SignUpModel();
+    private bool IsPasswordVisible = false;
+    private string PasswordInputType => IsPasswordVisible ? "text" : "password";
+    private string PasswordToggleIcon => IsPasswordVisible ? "bi-eye-slash" : "bi-eye";
+
+    private void TogglePasswordVisibility()
+    {
+        IsPasswordVisible = !IsPasswordVisible;
+    }
+
+    private async Task HandleSignup()
+    {
+        // Validate passwords
+        if (string.IsNullOrWhiteSpace(signupModel.Password) || string.IsNullOrWhiteSpace(signupModel.ConfirmPassword))
+        {
+            Console.WriteLine("Please fill in both password fields.");
+            return;
+        }
+
+        if (signupModel.Password != signupModel.ConfirmPassword)
+        {
+            Console.WriteLine("Passwords do not match.");
+            return;
+        }
+
+        // Create a new SignUpRequest instance and assign validated properties
+        var signUpRequest = new SignUpRequest
+            {
+                Name = signupModel.Name,
+                Email = signupModel.Email,
+                Password = signupModel.Password
+            };
+
+        try
+        {
+            // Interact with backend or authentication service
+            bool isSignupSuccessful = await authService.SignUpAsync(signUpRequest);
+
+            if (isSignupSuccessful)
+            {
+                Console.WriteLine("Signup successful! Redirecting...");
+                nv.NavigateTo("/login");
+            }
+            else
+            {
+                Console.WriteLine("Signup failed. Please try again.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred during signup: {ex.Message}");
+        }
+    }
+}

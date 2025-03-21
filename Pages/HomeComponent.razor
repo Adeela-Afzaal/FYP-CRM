@@ -1,0 +1,615 @@
+﻿@page "/home"
+@inject NavigationManager Navigation
+<div class="dashboard">
+
+    <!-- Main content area -->
+    <div class="main-content">
+        <!-- Cover Photo Section -->
+        <div class="cover-photo">
+            <div class="photo">
+                <img src="/images/photo.png" alt="Cover Photo" />
+            </div>
+            <div class="cover-photo-text">
+                <p>
+                    Make a strong first impression with new audiences by adding a cover photo.
+                    <a href="#">See how to choose the best cover photo.</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-icons">
+                <div class="profile-icon facebook-icon id=" trigger-button"">
+                    <span class="icon-initial">D</span>
+                </div>
+                <div class="profile-icon instagram-icon">
+                    <span class="icon-initial">D</span>
+                </div>
+            </div>
+            <div class="profile-info">
+                <h2>Demo Business Manager</h2>
+                <a href="#">Edit Facebook Page</a> | <a href="#">Connect Instagram</a>
+            </div>
+            <div class="followers">
+                <p>Facebook followers</p>
+                <span class="follower-count">0</span>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="create-post"  @onclick="NavigateToCreatePost">
+                <span class="icon">📄</span> Create Post
+            </button>
+            <button class="create-ad">
+                <span class="icon">📢</span> Create ad
+            </button>
+            <button class="create-reel">
+                <span class="icon">🎬</span> Create Reel
+            </button>
+            <button class="create-story">
+                <span class="icon">📖</span> Create Story
+            </button>
+            <button class="more-options">
+                <span class="icon">▼</span> More
+            </button>
+        </div>
+
+
+        <!--4 steps Section-->
+
+        <StepsComponent />
+
+        <!-- Ad Section -->
+        <div class="ad-container">
+            <div class="ad-header">Recent ads</div>
+            <div class="ad-content">
+                <div class="ad-image">
+                    <img src="/images/add.png" alt="Ad preview">
+                </div>
+                <div class="ad-text">
+                    <div class="ad-icons">
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <h2>Get started with your first ad</h2>
+                    <p>New, active and completed ads from the last 60 days will appear here. Running ads on a regular basis can help people remember and recall your business.</p>
+                    <button>Create ad</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="main-container">
+            <h2>Explore more ways to grow</h2>
+            <p>Learn about the latest tools and features in Meta Business Suite and more.</p>
+
+            <div class="notification-box">
+                <div class="notification-content">
+                    <div class="icon">
+                        <img src="/images/icon.png" alt="Icon">
+                    </div>
+                    <div class="text">
+                        <h3>Take Meta Business Suite with you on the go</h3>
+                        <p>You can respond to messages, view notifications, share posts and stories and more, whenever, wherever, with the mobile app.</p>
+                    </div>
+                    <button class="learn-how">Learn How</button>
+                </div>
+            </div>
+
+
+            <div class="audience-box" style="padding:100px;">
+                <h1>Grow your audience</h1>
+                <div class="audience-content">
+                    <div class="audience-image">
+                        <img src="/images/audience.png" alt="Audience Graphic">
+                    </div>
+                    <div class="audience-text">
+                        <p>There are no post reactions or people to invite yet. Try creating a post to connect with more people and grow your audience.</p>
+                    </div>
+                </div>
+                <button class="create-post1" @onclick="NavigateToCreatePost">Create Post</button>
+            </div>
+            </div>
+
+
+        <!-- What's New Section -->
+        <div class="whats-new">
+            <h2>What's new in Meta Business Suite</h2>
+            <p>Find the latest feature releases, updates and announcements.</p>
+            <div class="features-container">
+                <div class="feature">
+                    <div class="icon">⚡</div>
+                    <div class="feature-info">
+                        <h3>Create orders in another currency</h3>
+                        <p class="date">15 April 2024</p>
+                        <p>You can now select your preferred currency when creating orders in conversations.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="icon">⚡</div>
+                    <div class="feature-info">
+                        <h3>Meta Business Accounts are now called business portfolios</h3>
+                        <p class="date">9 January 2024</p>
+                        <p>Only the name is changing and no action is required on your end.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="icon">⚡</div>
+                    <div class="feature-info">
+                        <h3>Create reels from your photos</h3>
+                        <p class="date">13 November 2023</p>
+                        <p>You can now make reels with your photos to help your audience engage with them in a new way.</p>
+                        <a href="#">Create reel</a>
+                    </div>
+                </div>
+            </div>
+            <div class="see-more">
+                <a href="#">See more</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* Remove default padding and margin */
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Prevents extra scrollbar */
+        box-sizing: border-box;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    /* Ensure consistent box-sizing across all elements */
+    *, *::before, *::after {
+        box-sizing: inherit;
+    }
+
+    .dashboard {
+        display: flex;
+        height: 100vh; /* Full viewport height */
+        overflow: hidden; /* Prevents extra scrollbar */
+    }
+
+    .main-content {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto; /* Allows vertical scrolling if content overflows */
+        background: linear-gradient(to right, #E0F7FA, #E6E6FA); /* Light blue to light purple gradient */
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: black;
+        font-weight: bold;
+    }
+
+    p {
+        color: #333;
+    }
+
+
+    .cover-photo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, #B7C9E2, #818589);
+        padding: 150px;
+        border-radius: 8px;
+    }
+
+    .photo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+    }
+
+        .photo img {
+            width: 100px;
+            height: 100px;
+        }
+
+    .cover-photo-text {
+        color: #606770;
+        font-size: 12px;
+        max-width: 400px;
+    }
+
+        .cover-photo-text a {
+            color: #1877f2;
+            text-decoration: none;
+        }
+
+
+    .profile-section {
+        display: flex;
+        align-items: center;
+        padding: 35px;
+    }
+
+    .profile-icon {
+        display: inline-block;
+        padding: 20px;
+        background-color: #4267B2; /* Facebook blue */
+        color: white;
+        font-size: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .facebook-icon {
+        background-color: #3b5998;
+    }
+
+    .instagram-icon {
+        background-color: #c32aa3;
+    }
+
+    .profile-info {
+        margin-left: 10px;
+    }
+
+        .profile-info h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .profile-info a {
+            color: #1877f2;
+            text-decoration: none;
+        }
+
+    .followers {
+        margin-left: auto;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 5px; /* Space between each button */
+        padding: 15px;
+        background: #E0F7FA;
+        border-radius: 8px;
+    }
+
+        .action-buttons button {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px; /* Padding to balance icon and text */
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f2f5;
+            color: #555;
+            cursor: pointer;
+            gap: 7px; /* Space between icon and text */
+            flex-shrink: 0; /* Prevents buttons from shrinking */
+        }
+
+        .action-buttons .create-post {
+            background-color: #007FFF; /* Blue background */
+            color: white;
+            width: 250px; /* Wider button for "Create Post" */
+            border: none; /* Remove border for the primary button */
+        }
+
+        .action-buttons button:not(.create-post) {
+            background-color: #f0f2f5;
+            color: #555;
+            border: 1px solid #ccc;
+            padding: 8px 12px; /* Slightly less padding for smaller buttons */
+        }
+
+        .action-buttons .icon {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+
+    .ad-container {
+        width: 100%;
+        background-color: #f4f7fa;
+        border-radius: 8px;
+        margin-top: 20px;
+        padding: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .ad-header {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 16px;
+    }
+
+    .ad-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .ad-image {
+        width: 200px;
+        height: 200px;
+        background-color: #e0f7f7;
+        border-radius: 8px;
+        margin-right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .ad-image img {
+            object-fit: cover;
+            width: 100px;
+            height: 100px;
+        }
+
+    .ad-text {
+        flex: 1;
+    }
+
+    .ad-icons {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+        .ad-icons img {
+            width: 20px;
+            height: 20px;
+        }
+
+    .ad-text h2 {
+        font-size: 18px;
+        margin: 0;
+        color: #333;
+    }
+
+    .ad-text p {
+        font-size: 14px;
+        color: #555;
+        margin: 8px 0 16px;
+    }
+
+    .ad-text button {
+        padding: 8px 16px;
+        font-size: 14px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .ad-text button:hover {
+            background-color: #0056b3;
+        }
+
+
+    .main-container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+        .main-container h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .main-container p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+    /* Notification Box Styling */
+    .notification-box {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        margin-bottom: 20px;
+        position: relative;
+        width: 100%
+    }
+
+    .notification-content {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    .notification-box .icon img {
+        width: 40px;
+        height: 40px;
+        margin-right: 16px;
+    }
+
+    .notification-box .text h3 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin: 0;
+    }
+
+    .notification-box .text p {
+        font-size: 14px;
+        color: #666;
+        margin: 4px 0 0;
+    }
+
+    .notification-box .learn-how {
+        margin-left: auto;
+        padding: 8px 16px;
+        font-size: 14px;
+        color: #007bff;
+        background-color: #f1f9ff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .notification-box .learn-how:hover {
+            background-color: #e1f2ff;
+        }
+
+    .notification-box .close-button {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: none;
+        border: none;
+        font-size: 16px;
+        color: #999;
+        cursor: pointer;
+    }
+
+    /* Audience Box Styling */
+    .audience-box {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 16px;
+    }
+
+        .audience-box h3 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+    .audience-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .audience-image img {
+        width: 300px; /* Adjust the width as needed */
+        height: auto; /* Maintains aspect ratio */
+        max-width: 100%; /* Keeps the image responsive */
+    }
+
+    .audience-text {
+        max-width: 400px; /* Adjust based on desired layout */
+    }
+
+    .create-post1 {
+        display: block;
+        width: 100%; /* Makes the button span the full width of the parent */
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        margin-top: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+
+        .create-post1:hover {
+            background-color: #e1f2ff;
+            color: #007bff;
+        }
+
+
+    /* What's New Section Styling */
+
+    .whats-new {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .whats-new h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .whats-new p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+    /* Features container for responsive layout */
+    .features-container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .feature {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        display: flex;
+        align-items: flex-start;
+        flex: 1 1 300px; /* Flex grow and shrink with min-width constraint */
+        box-sizing: border-box;
+    }
+
+    .icon {
+        font-size: 24px;
+        color: #1877f2;
+        margin-right: 10px;
+    }
+
+    .feature-info h3 {
+        font-size: 16px;
+        color: #333;
+        margin: 0;
+    }
+
+    .feature-info .date {
+        font-size: 12px;
+        color: #888;
+    }
+
+    .feature-info p {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .feature-info a {
+        color: #1877f2;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    /* See more button */
+    .see-more {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .see-more a {
+            color: #1877f2;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+</style>
+@code{
+    private void NavigateToCreatePost()
+    {
+        Navigation.NavigateTo("/create-post");
+    }
+}

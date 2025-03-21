@@ -1,0 +1,118 @@
+﻿
+<style>
+    .container-box {
+        position: relative; /* Ensure arrows are positioned relative to the container */
+        max-width: 100%; /* Container fits within the parent */
+        margin: 20px auto; /* Center the container horizontally */
+        padding: 20px;
+        background: #f8f9fa; /* Light background for better visibility */
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        overflow: hidden; /* Hide overflowing content */
+    }
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .step-header {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .step-container {
+        display: flex;
+        gap: 20px; /* Space between items */
+        overflow-x: auto; /* Allow horizontal scrolling */
+        scroll-behavior: smooth; /* Smooth scrolling effect */
+        padding: 10px 0;
+    }
+
+        .step-container::-webkit-scrollbar {
+            height: 8px; /* Customize scrollbar height */
+        }
+
+        .step-container::-webkit-scrollbar-thumb {
+            background: #bbb; /* Scrollbar color */
+            border-radius: 4px;
+        }
+
+        .step-container::-webkit-scrollbar-track {
+            background: #f0f0f0; /* Scrollbar track color */
+        }
+
+    .step-item {
+        flex: 0 0 25%; /* Equal width for each item (25% of container) */
+        background: #fff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .step-item:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .step-item img {
+            max-width: 50px;
+            margin-bottom: 15px;
+        }
+
+        .step-item h6 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .step-item p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+</style>
+
+<div class="container-box">
+    <div class="header-container">
+        <div>
+            <div class="step-header">Get familiar with Meta Business Suite</div>
+            <div>Steps to get started</div>
+            <div>0 of 4 steps completed</div>
+        </div>
+        <button class="btn">See All Steps</button>
+    </div>
+
+
+    <div class="step-container">
+        <a href="#" class="step-item">
+            <img src="/images/post-action-icon_light.png" alt="Instagram Icon">
+            <h6>Connect an Instagram profile</h6>
+            <p>Manage everything in one place by connecting your professional Instagram profile.</p>
+        </a>
+        <a href="#" class="step-item">
+            <img src="/images/Insights-b4b_80.png" alt="Post Icon">
+            <h6>Create a post</h6>
+            <p>Share updates about your business on both Facebook and Instagram.</p>
+        </a>
+        <a href="#" class="step-item">
+            <img src="/images/message-action-icon_light.png" alt="Messages Icon">
+            <h6>Reply to messages</h6>
+            <p>Save time by replying to all messages in one place.</p>
+        </a>
+        <a href="#" class="step-item">
+            <img src="/images/heratt.png" alt="Audience Icon">
+            <h6>Grow your audience</h6>
+            <p>This will allow Meta to access your personal profile for better reach.</p>
+        </a>
+    </div>
+
+
+</div>
+

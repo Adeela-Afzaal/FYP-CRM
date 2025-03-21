@@ -1,0 +1,123 @@
+﻿@page "/post"
+@using BlazorApp_Meta_UI.Services
+@inject ApiService ApiService
+@inject NavigationManager Navigation
+
+<div class="container-fluid vh-100 d-flex justify-content-center align-items-center gradient-background">
+    <div class="post-container shadow-sm rounded p-4 position-relative">
+        <!-- Close button at the top-right corner -->
+        <button @onclick="CloseComponent" class="close-button">&times;</button>
+
+        <h3 class="text-center">Post to Facebook</h3>
+
+        <div class="input-container mb-3">
+            <InputFile OnChange="OnImageSelected" accept="image/*" class="form-control" />
+            <input @bind="caption" placeholder="Enter image caption" class="caption-input form-control mt-2" />
+        </div>
+
+        <button @onclick="async () => await PostToFacebook()" class="btn btn-primary btn-block">Post to Facebook</button>
+
+        <p class="result-text mt-3">@result</p>
+    </div>
+</div>
+
+<style>
+    /* Gradient background for the entire page */
+    .gradient-background {
+        background: linear-gradient(to right, #e3dbf2, #ffffff);
+    }
+
+    .post-container {
+        max-width: 500px;
+        width: 100%;
+        background-color: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .caption-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .result-text {
+        text-align: center;
+        color: #28a745;
+        margin-top: 20px;
+        font-weight: bold;
+        overflow-wrap: break-word; /* Ensure long text wraps within the container */
+        max-height: 100px; /* Limit max height for overflow control */
+        overflow-y: auto; /* Enable vertical scroll if text exceeds max height */
+    }
+
+    .btn-block {
+        transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+     .btn-block:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+     }
+
+    /* Close button styling */
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+    }
+
+    .close-button:hover {
+         background-color: #ff4d4d;
+         color: white;
+    }
+</style>
+
+@code {
+    private string caption = string.Empty;
+    private string result = string.Empty;
+    private IBrowserFile? selectedImage;
+
+    private async Task OnImageSelected(InputFileChangeEventArgs e)
+    {
+        selectedImage = e.File;
+    }
+
+    private async Task PostToFacebook()
+    {
+        try
+        {
+            if (selectedImage != null)
+            {
+                var imageData = new byte[selectedImage.Size];
+                await selectedImage.OpenReadStream().ReadAsync(imageData);
+                result = await ApiService.PostImageToFacebook(imageData, caption);
+            }
+            else
+            {
+                result = "Please select an image to upload.";
+            }
+        }
+        catch (Exception ex)
+        {
+            result = $"Error: {ex.Message}";
+        }
+    }
+
+    private void CloseComponent()
+    {
+        Navigation.NavigateTo("/platform-selector");
+    }
+}

@@ -1,0 +1,61 @@
+﻿@page "/platform-selector"
+@inject NavigationManager Navigation
+
+<div class="container text-center my-4 gradient-background">
+    <h3>Choose Your Facebook Posting Type</h3>
+
+    <div class="row justify-content-center my-3">
+        <div class="col-12 col-md-5">
+            <button class="btn btn-primary btn-block action-button" @onclick="() => NavigateToPlatform('F')">
+                <span class="button-icon">📘</span> Post Image
+            </button>
+        </div>
+        <div class="col-12 col-md-5">
+            <button class="btn btn-info btn-block action-button" @onclick="() => NavigateToPlatform('T')">
+                <span class="button-icon">🐦</span> Post Text
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .gradient-background {
+        background: linear-gradient(135deg, #e3dbf2, white); /* Gradient from #e3dbf2 to white */
+        padding: 20px; /* Reduced padding for a more compact height */
+        border-radius: 10px; /* Optional rounded corners */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Optional shadow */
+        max-width: 700px; /* Set a max-width for a more compact layout */
+
+        margin: auto; /* Center the container */
+    }
+
+    .action-button {
+        font-size: 18px; /* Adjust button font size */
+        font-weight: bold;
+        transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .action-button:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .button-icon {
+        margin-right: 8px;
+        font-size: 20px; /* Adjust icon size */
+    }
+</style>
+
+@code {
+    private void NavigateToPlatform(char platform)
+    {
+        if (platform == 'F')
+        {
+            Navigation.NavigateTo("/post"); // Navigate to Facebook post page
+        }
+        else if (platform == 'T')
+        {
+            Navigation.NavigateTo("/textpost"); // Navigate to Twitter post page
+        }
+    }
+}

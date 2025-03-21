@@ -1,0 +1,126 @@
+﻿@page "/textpost"
+@using BlazorApp_Meta_UI.Services
+@inject ApiService ApiService
+@inject NavigationManager Navigation
+
+<div class="gradient-background d-flex justify-content-center align-items-center">
+    <div class="post-container shadow-sm rounded p-4 position-relative">
+        <!-- Close button at the top-right corner -->
+        <button @onclick="CloseComponent" class="close-button">&times;</button>
+
+        <h3 class="text-center">Send Message to Recipient</h3>
+
+        <div class="input-container mb-3">
+            <input @bind="recipientId" placeholder="Enter recipient ID" class="form-control mb-2" />
+            <textarea @bind="message" placeholder="Enter your message" class="caption-input form-control mt-2"></textarea>
+        </div>
+
+        <button @onclick="async () => await SendMessage()" class="btn btn-primary btn-block">Send Message</button>
+
+        <p class="result-text mt-3">@result</p>
+    </div>
+</div>
+
+<style>
+    /* Gradient background for the entire page */
+    .gradient-background {
+        background: linear-gradient(to right, #e3dbf2, #ffffff);
+        height: 100vh;
+    }
+
+    .post-container {
+        max-width: 500px;
+        width: 100%;
+        background-color: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .caption-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        height: 100px;
+        resize: none;
+    }
+
+    .result-text {
+        text-align: center;
+        color: #28a745;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    .btn-block {
+        transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .btn-block:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .result-text {
+        text-align: center;
+        color: #28a745;
+        margin-top: 20px;
+        font-weight: bold;
+        word-wrap: break-word; /* Ensures long words break to the next line */
+        overflow: auto; /* Adds scrolling if content exceeds container size */
+        max-height: 150px; /* Sets a maximum height */
+        padding: 10px;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+    }
+
+    .close-button:hover {
+        background-color: #ff4d4d;
+        color: white;
+    }
+</style>
+
+@code {
+    private string recipientId = string.Empty;
+    private string message = string.Empty;
+    private string result = string.Empty;
+
+    private async Task SendMessage()
+    {
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(recipientId) && !string.IsNullOrWhiteSpace(message))
+            {
+                result = await ApiService.SendMessageToRecipient(recipientId, message);
+            }
+            else
+            {
+                result = "Please provide both recipient ID and a message.";
+            }
+        }
+        catch (Exception ex)
+        {
+            result = $"Error: {ex.Message}";
+        }
+    }
+
+    private void CloseComponent()
+    {
+        Navigation.NavigateTo("/platform-selector");
+    }
+}

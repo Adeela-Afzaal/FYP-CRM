@@ -1,0 +1,189 @@
+﻿<!-- Add Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<nav class="sidebar d-flex flex-column bg-aquamarine col-2 col-md-2 d-block p-0" id="sidebar" style="height: 100vh; min-width: 80px; transition: width 0.3s ease;">
+                <!-- Company logo at the top -->
+                <div class="logo-container text-center p-3">
+                    <img src="images/Metalogo.PNG" alt="Company Logo" class="logo img-fluid" />
+                </div>
+
+                <!-- Profile Dropdown -->
+                <div class="profile-dropdown position-relative">
+                    <button class="profile-button d-flex align-items-center btn border rounded p-2" onclick="toggleDropdown()">
+                        <img src="images/profile-pic.jpg" alt="Profile Picture" class="profile-pic rounded-circle mr-2" style="width: 40px; height: 40px;" />
+                        <span class="d-none d-md-inline">quratainy1</span> <!-- Hide on small screens -->
+                        <span class="dropdown-icon ml-auto">▼</span>
+                    </button>
+
+                    <!-- Dropdown content -->
+                    <div class="dropdown-menu" id="profileDropdown">
+                        <input type="text" placeholder="Search for a business asset" class="search-input form-control mb-2" />
+                        <div class="business-portfolios">
+                            <h4>Business portfolios</h4>
+                            <div class="portfolio-item d-flex align-items-center py-2">
+                                <div class="portfolio-avatar rounded-circle">A</div>
+                                <div class="portfolio-info flex-grow-1">
+                                    <span>Amina Bibi</span>
+                                    <p>1 business asset • 1 selected</p>
+                                </div>
+                                <div class="portfolio-settings">⚙️</div>
+                            </div>
+                            <div class="portfolio-item selected d-flex align-items-center py-2">
+                                <img src="images/profile-pic.jpg" alt="Instagram logo" class="portfolio-avatar rounded-circle" style="width: 40px; height: 40px;" />
+                                <div class="portfolio-info flex-grow-1">
+                                    <span>quratainy1</span>
+                                    <p>Instagram account</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="logout-button btn btn-outline-secondary btn-block">Log out</button>
+                    </div>
+                </div>
+
+                <!-- Scrollable Menu Section -->
+                <div class="scrollable flex-grow-1 overflow-auto p-3">
+                    <ul class="list-unstyled">
+                        <li><a href="/home" class="d-flex align-items-center py-2"><i class="fas fa-home mr-2"></i><span class="d-none d-md-inline"> Home</span></a></li>
+            <li><a href="/notificationslider" class="d-flex align-items-center py-2"><i class="fas fa-bell mr-2"></i><span class="d-none d-md-inline"> Notifications</span></a></li>
+                        <li><a href="#" class="d-flex align-items-center py-2"><i class="fas fa-inbox mr-2"></i><span class="d-none d-md-inline"> Inbox</span></a></li>
+                        <li><a href="#" class="d-flex align-items-center py-2"><i class="fas fa-file-alt mr-2"></i><span class="d-none d-md-inline"> Content</span></a></li>
+                        <li><a href="/planner" class="d-flex align-items-center py-2"><i class="fas fa-calendar-alt mr-2"></i><span class="d-none d-md-inline"> Planner</span></a></li>
+                        <li><a href="#" class="d-flex align-items-center py-2"><i class="fas fa-ad mr-2"></i><span class="d-none d-md-inline"> Ads</span></a></li>
+                        <li><a href="#" class="d-flex align-items-center py-2"><i class="fas fa-chart-line mr-2"></i><span class="d-none d-md-inline"> Insights</span></a></li>
+                        <li><a href="#" class="d-flex align-items-center py-2"><i class="fas fa-tools mr-2"></i><span class="d-none d-md-inline"> All tools</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Bottom fixed section -->
+                <div class="fixed p-3 border-top">
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="d-flex align-items-center py-2"><i class="fas fa-search mr-2"></i><span class="d-none d-md-inline"> Search</span></a></li>
+                        <li><a href="#" class="d-flex align-items-center py-2"><i class="fas fa-cog mr-2"></i><span class="d-none d-md-inline"> Settings</span></a></li>
+                        <li><a href="/dashboard" class="d-flex align-items-center py-2 btn btn-dark text-white"><i class="fas fa-rocket mr-2"></i><span class="d-none d-md-inline"> Get Started</span></a></li>
+                        <li><a href="#" class="d-flex align-items-center py-2 btn btn-light"><i class="fas fa-info-circle mr-2"></i><span class="d-none d-md-inline"> Help</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+
+           
+<!-- JavaScript to toggle dropdown visibility -->
+<script>
+    function toggleDropdown() {
+        const dropdown = document.getElementById("profileDropdown");
+        dropdown.classList.toggle("show");
+    }
+
+    document.addEventListener("click", function (event) {
+        const dropdown = document.getElementById("profileDropdown");
+        const button = document.querySelector(".profile-button");
+
+        // Close dropdown if click is outside the button and dropdown
+        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.remove("show");
+        }
+    });
+</script>
+
+<style>
+    /* Sidebar */
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* Ensure sidebar takes up full viewport height */
+        background-color: white;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .profile-button {
+        width: 95%;
+        margin: 10px auto; /* Add margin on top/bottom and center horizontally */
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .profile-dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        position: absolute; /* Make the dropdown position absolute */
+        top: 100%; /* Position it directly below the button */
+        width: 150%; /* Optional: make it the same width as the button */
+        display: none; /* Initially hidden */
+        z-index: 1000; /* Ensure it appears on top */
+        padding: 10px;
+    }
+
+        .dropdown-menu.show {
+            display: block; /* Show when toggled */
+        }
+
+    .logout-button {
+        margin: 10px 0; /* Add margin on top and bottom */
+    }
+
+    .search-input {
+        margin-bottom: 10px;
+    }
+
+    .portfolio-avatar {
+        width: 40px;
+        height: 40px;
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+    }
+
+    .portfolio-info {
+        flex-grow: 1;
+    }
+
+    .selected {
+        background-color: #e6f7ff;
+    }
+
+    /* Scrollable content */
+    .scrollable {
+        flex-grow: 1; /* This ensures the content grows to fill available space */
+        overflow-y: auto; /* Make the content scrollable */
+        padding: 15px;
+    }
+
+    .fixed {
+        padding: 15px 0;
+        border-top: 1px solid #ddd;
+        background-color: white;
+    }
+
+    /* Hide sidebar text on small screens */
+    .d-none.d-md-inline {
+        display: none;
+    }
+
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .sidebar ul li {
+            padding: 10px 0;
+        }
+
+            .sidebar ul li a {
+                text-decoration: none;
+                color: #333;
+                display: block;
+            }
+
+                .sidebar ul li a:hover {
+                    background-color: lightgray;
+                    border-radius: 8px;
+                }
+</style>

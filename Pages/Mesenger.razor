@@ -1,0 +1,41 @@
+﻿@page "/messages"
+@using System.Text.Json
+
+@using BlazorApp_Meta_UI.Services
+@inject MessageService MessageService
+
+<h3>Facebook Messages</h3>
+
+@if (messages == null || messages.Count == 0)
+{
+    <p>No messages found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var message in messages)
+        {
+
+            <li><strong>@message.SenderId</strong>: @message.MessageText</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Message>? messages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            messages = await MessageService.GetMessagesAsync();
+            Console.WriteLine($"Loaded {messages.Count} messages.");
+            Console.WriteLine($"Messages data: {JsonSerializer.Serialize(messages)}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading messages: {ex.Message}");
+            messages = new List<Message>();  // Fallback to an empty list in case of error
+        }
+    }
+}

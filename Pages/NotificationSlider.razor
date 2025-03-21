@@ -1,0 +1,116 @@
+﻿@page "/notificationslider"
+@using BlazorApp_Meta_UI.Services
+@using BlazorApp_Meta_UI.Models
+@inject ScheduleService ScheduleService
+@if (isSliderOpen)
+{
+    <div class="modal-backdrop d-flex justify-content-center align-items-center">
+        <div class="notification-box p-3 bg-white rounded shadow-lg">
+            <button class="btn-close position-absolute top-0 end-0 m-2" @onclick="CloseSlider"></button>
+            <div class="bell-section text-center border-bottom pb-3 mb-3">
+                <img src="images/Notification-bell-icon.png" alt="Bell Icon" class="img-fluid" style="width: 100px; height: auto;" />
+            </div>
+            <div class="tasks-section">
+                <h4 class="text-center mb-3">Scheduled Tasks</h4>
+                
+                @if (ScheduleService.GetScheduledPosts().Any(post => post.ScheduledDateTime <= DateTime.Now.AddDays(7) && post.ScheduledDateTime > DateTime.Now))
+                {
+                    <div class="mt-4">
+                        <h4>Scheduled Posts:</h4>
+                        <ul class="list-group">
+                            @foreach (var post in ScheduleService.GetScheduledPosts().Where(post => post.ScheduledDateTime <= DateTime.Now.AddDays(7) && post.ScheduledDateTime > DateTime.Now))
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#ffb6c1">
+                                    <span>@post.PostText</span>
+                                    <span class="badge bg-light text-dark">@post.ScheduledDateTime.ToString("dd MMM yyyy HH:mm")</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <p>No scheduled posts available.</p>
+                }
+                @if (tasks.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var task in tasks)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: @(GetPriorityColor(task.Priority)); color: #fff;">
+                                <span>@task.Name</span>
+                                <span class="badge bg-light text-dark">@task.Date.ToString("dd MMM yyyy")</span>
+                            </li>
+                        }
+                    </ul>
+                }
+
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        z-index: 1050;
+    }
+
+    .notification-box {
+        max-width: 500px;
+        width: 90%; /* Adjusts width dynamically based on screen size */
+    }
+
+    .tasks-section {
+        max-height: 300px; /* Limit height to keep compact */
+        overflow-y: auto; /* Enable scrolling for long task lists */
+    }
+</style>
+
+@code {
+    private bool isSliderOpen = true;
+    private List<TaskService.TaskItem> tasks = new();
+
+    [Inject] private TaskService TaskService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        LoadTasks(); // Load tasks initially
+    }
+
+    public void OpenSlider()
+    {
+        isSliderOpen = true;
+        StateHasChanged(); // Update UI
+    }
+
+    private void CloseSlider()
+    {
+        isSliderOpen = false;
+    }
+
+    private void LoadTasks()
+    {
+        var currentDate = DateTime.Today;
+        var endDate = currentDate.AddDays(7);
+
+        // Filter tasks for the next 7 days
+        tasks = TaskService.GetAllTasks()
+                            .Where(task => task.Date >= currentDate && task.Date <= endDate)
+                            .OrderBy(task => task.Date)
+                            .ToList();
+    }
+
+    private string GetPriorityColor(string priority) => priority switch
+    {
+        "High" => "#ff6666",  // Red for high priority
+        "Medium" => "#ffcc00", // Yellow for medium priority
+        "Low" => "#90ee90",    // Green for low priority
+        _ => "#ffb6c1"         // Default grey for no priority
+    };
+}

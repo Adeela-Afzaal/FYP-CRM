@@ -1,0 +1,86 @@
+﻿@page "/dashboard3"
+
+<div class="container my-4">
+    <div class="best-practices p-3 border rounded bg-white">
+
+        <div class="row practice-item align-items-center mb-4">
+            <div class="col-auto">
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+            <div class="col">
+                <div class="content">
+                    <h3>Learn how to switch between accounts</h3>
+                    <p>You can select to work on Facebook Pages or profile and Instagram accounts that you help manage.</p>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="button-container">
+                    <button class="action-buttonPractices btn btn-outline-dark text-dark">Take a tour</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row practice-item align-items-center mb-4">
+            <div class="col-auto">
+                <div class="icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+            </div>
+            <div class="col">
+                <div class="content">
+                    <h3>Download mobile app</h3>
+                    <p>Stay up to date wherever you are with the Meta Business Suite mobile app.</p>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="button-container">
+                    <button class="action-buttonPractices btn btn-outline-dark text-dark">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .best-practices {
+        background-color: white; /* White background */
+    }
+
+    .icon {
+        width: 60px; /* Set a fixed width for the icon container */
+        height: 60px; /* Set a fixed height for the icon container */
+        background-color: #f0f0f0; /* Light gray background */
+        border-radius: 50%; /* Circular background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .icon i {
+         font-size: 24px; /* Adjust the size of the icon */
+         color: black; /* Icon color */
+        }
+
+    .content h3 {
+        font-size: 18px; /* Adjust heading size */
+        font-weight: bold; /* Make heading bold */
+        color: black; /* Heading color */
+    }
+
+    .content p {
+        color: #666; /* Paragraph color */
+        margin: 5px 0 0; /* Margin for paragraph */
+    }
+
+    .action-buttonPractices {
+        padding: 10px 20px; /* Button padding */
+        font-weight: bold; /* Button text weight */
+        transition: background-color 0.3s ease; /* Transition for hover */
+    }
+
+    .action-buttonPractices:hover {
+        background-color: #e6e9f3; /* Change button background on hover */
+    }
+</style>

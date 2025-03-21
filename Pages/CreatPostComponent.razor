@@ -1,0 +1,459 @@
+﻿@page "/create-post"
+@using BlazorApp_Meta_UI.Services
+@inject ApiService ApiService
+@using BlazorApp_Meta_UI.Models
+@inject ScheduleService ScheduleService
+
+<style>
+    /* Remove default padding and margin */
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Prevents extra scrollbar */
+        box-sizing: border-box;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    .create-post-page-container {
+        display: flex;
+        height: 100vh; /* Full viewport height */
+        overflow: hidden; /* Prevents extra scrollbar */
+        background: linear-gradient(to right, #E0F7FA, #E6E6FA);
+    }
+
+    .main-content {
+        flex-grow: 1;
+        padding: 20px;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 8px;
+        overflow-y: auto; /* Allows vertical scrolling if content overflows */
+        background: linear-gradient(to right, #E0F7FA, #E6E6FA); /* Light blue to light purple gradient */
+    }
+
+    .create-post-page-container h2 {
+        text-align: center; /* Centers the text horizontally */
+        margin-bottom: 20px; /* Adds space below the heading */
+        font-size: 28px; /* Adjust the font size */
+        color: #333; /* Set text color */
+        font-weight: bold; /* Optional: Makes the text bold */
+    }
+
+    .section-container {
+        margin-bottom: 20px;
+    }
+
+    .section {
+        margin-bottom: 20px;
+    }
+
+    .label {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-select,
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .note {
+        font-size: 12px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .media-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+
+
+
+    /* Scheduler */
+    .scheduling-options {
+        display: flex;
+        flex-direction: column; /* Stack label and buttons */
+        align-items: flex-start; /* Align everything to the left */
+        gap: 15px; /* Space between label and buttons */
+        background: #f5f5f5; /* Neutral light background */
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid #ddd; /* Subtle border for structure */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add slight shadow for depth */
+        margin-bottom: 20px; /* Add space below the scheduler */
+    }
+
+    .scheduling-label {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333; /* Neutral dark color for better contrast */
+        margin: 0; /* Remove default margin */
+    }
+
+    .btn-group {
+        display: flex; /* Ensure buttons are in a horizontal row */
+        gap: 10px; /* Add space between buttons */
+    }
+
+</style>
+<div class="create-post-page-container">
+    <div class="main-content">
+        <h2>Create Post</h2>
+        <!-- Create Post Section -->
+        <div class="section-container">
+            <!-- Post to Dropdown -->
+            <div class="section">
+                <label for="postTo" class="label">Post to</label>
+                <select id="postTo" class="form-select" @bind="PostTo">
+                    <option>Demo Business Manager</option>
+                </select>
+            </div>
+
+            <!-- Post Details Section -->
+            <div class="section">
+                <h5 class="section-title">Post Details</h5>
+                <textarea class="form-control" rows="5" placeholder="Write something..." @bind="PostText"></textarea>
+            </div>
+
+            <!-- Media Upload Section -->
+            <div class="section">
+                <h5 class="section-title">Media</h5>
+                <p class="note">Share photos or a video. Instagram posts can't exceed 10 photos.</p>
+                <InputFile OnChange="OnMediaSelected" accept="image/*,video/*" class="form-control" />
+
+                <div class="media-preview mt-3">
+                    @if (SelectedFiles?.Count > 0)
+                    {
+                        <ul>
+                            @foreach (var file in SelectedFiles)
+                            {
+                                <li>@file.Name</li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+
+             <div class="container mt-5">
+
+            <div class="scheduling-options">
+                <label class="scheduling-label">Scheduling Options</label>
+                <div class="btn-group" role="group" aria-label="Scheduling options">
+                    <button type="button"
+                            class="btn @(SelectedOption == "Publish Now" ? "btn-primary" : "btn-outline-primary")"
+                            @onclick='() => UpdateSchedulerOption("Publish Now")'>
+                        Publish Now
+                    </button>
+                    <button type="button"
+                            class="btn @(SelectedOption == "Schedule" ? "btn-primary" : "btn-outline-primary")"
+                            @onclick='() => UpdateSchedulerOption("Schedule")'>
+                        Schedule
+                    </button>
+                    <button type="button"
+                            class="btn @(SelectedOption == "Save as Draft" ? "btn-primary" : "btn-outline-primary")"
+                            @onclick='() => UpdateSchedulerOption("Save as Draft")'>
+                        Save as Draft
+                    </button>
+                </div>
+            </div>
+
+            @if (SelectedOption == "Schedule")
+            {
+                <div class="schedule-container mt-3">
+                    <label for="scheduleDate" class="form-label">Select Date</label>
+                    <InputDate id="scheduleDate" @bind-Value="ScheduledDate" class="form-control" />
+
+                    <label for="scheduleTime" class="form-label mt-2">Select Time</label>
+                    <InputText id="scheduleTime" @bind-Value="ScheduledTimeString" class="form-control" placeholder="HH:mm" />
+
+                    <button type="button" class="btn btn-outline-secondary mt-3">Active Times</button>
+                </div>
+
+                <p class="note mt-2 text-danger">
+                    Scheduled posts need to be shared between 20 minutes and 29 days from when you create them.
+                </p>
+            }
+
+        </div>
+
+        <div class="section actions">
+            <button class="btn btn-secondary" @onclick="ClearForm">Cancel</button>
+            <button class="btn btn-primary"
+                    @onclick="() => PerformAction(SelectedOption)" disabled="@(IsSubmitDisabled)">
+                @(SelectedOption == "Schedule" ? "Schedule" : "Publish")
+            </button>
+
+        </div>
+
+        @if (ScheduleService.GetScheduledPosts().Any())
+        {
+            <div class="mt-4">
+                <h4>Scheduled Posts:</h4>
+                <ul class="list-group">
+                    @foreach (var post in ScheduleService.GetScheduledPosts())
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>@post.PostText</span>
+                            <span class="badge bg-light text-dark">@post.ScheduledDateTime.ToString("dd MMM yyyy HH:mm")</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+        else
+        {
+            <p>No scheduled posts available.</p>
+        }
+        <!-- Display Result -->
+        <p class="result-text mt-3">@Result</p>
+    </div>
+    </div>
+</div>
+
+
+@code {
+    private string PostTo = "Demo Business Manager";
+    private string PostText = string.Empty;
+    private List<IBrowserFile> SelectedFiles = new();
+    private string Privacy { get; set; } = "Public"; // Default value
+    private string Result = string.Empty;
+    private string SelectedOption = "Publish Now"; // Default scheduling option
+    private DateTime? ScheduledDate { get; set; }
+    private string ScheduledTimeString { get; set; } // String to hold time input
+  
+
+    // TimeSpan representation of the ScheduledTime
+    private bool IsSubmitDisabled => string.IsNullOrWhiteSpace(PostText) || SelectedFiles.Count == 0;
+
+    private bool IsScheduleDisabled =>
+        string.IsNullOrWhiteSpace(PostText) ||
+        SelectedFiles.Count == 0 ||
+        ScheduledDate == null ||
+        ScheduledTime == null;
+    private TimeSpan? ScheduledTime
+    {
+        get
+        {
+            if (TimeSpan.TryParse(ScheduledTimeString, out var time))
+            {
+                return time;
+            }
+            return null;
+        }
+        set
+        {
+            if (value.HasValue)
+            {
+                ScheduledTimeString = value.Value.ToString(@"hh\:mm");
+            }
+            else
+            {
+                ScheduledTimeString = string.Empty;
+            }
+        }
+    }
+
+    private void UpdateSchedulerOption(string option)
+    {
+        SelectedOption = option;
+
+        // Reset date and time when switching to "Publish Now" or "Save as Draft"
+        if (SelectedOption != "Schedule")
+        {
+            ScheduledDate = null;
+            ScheduledTimeString = null;
+        }
+    }
+    // Handle media selection
+    private async Task OnMediaSelected(InputFileChangeEventArgs e)
+    {
+        SelectedFiles.Clear();
+        foreach (var file in e.GetMultipleFiles())
+        {
+            SelectedFiles.Add(file);
+        }
+    }
+
+    // Handle post submission
+    private async Task SubmitPost()
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(PostText) && SelectedFiles.Count == 0)
+            {
+                Result = "Post must contain text or media!";
+                return;
+            }
+
+            if (SelectedFiles.Count > 0)
+            {
+                foreach (var file in SelectedFiles)
+                {
+                    var imageData = new byte[file.Size];
+                    await file.OpenReadStream().ReadAsync(imageData);
+
+                    // Upload image with caption (ensure the API method is properly implemented)
+                    Result = await ApiService.PostImageToFacebook(imageData, PostText);
+                }
+            }
+            else
+            {
+                // Upload only text
+                Result = await ApiService.PostTextToFacebook(PostText);
+            }
+
+            ClearForm();
+        }
+        catch (Exception ex)
+        {
+            Result = $"Error: {ex.Message}";
+        }
+    }
+    private async Task PerformAction(string action)
+    {
+        if (action == "Publish Now")
+        {
+            await SubmitPost();
+        }
+        else if (action == "Schedule")
+        {
+            var validationError = ValidateSchedule();
+            if (!string.IsNullOrEmpty(validationError))
+            {
+                Result = validationError;
+                return;
+            }
+
+            var scheduledPost = new ScheduledPost
+                {
+                    ScheduledDateTime = ScheduledDate.Value.Date + ScheduledTime.Value,
+                    PostText = PostText,
+                    SelectedFiles = new List<IBrowserFile>(SelectedFiles)
+                };
+
+            ScheduleService.AddScheduledPost(scheduledPost);
+
+            Result = $"Post scheduled successfully for {scheduledPost.ScheduledDateTime:yyyy-MM-dd HH:mm}.";
+            ClearForm();
+        }
+    }
+
+
+    private void ClearForm()
+    {
+        PostText = string.Empty;
+        SelectedFiles.Clear();
+        Privacy = "Public";
+        SelectedOption = "Publish Now"; // Reset to default
+        ScheduledDate = null;
+        ScheduledTimeString = null;
+    }
+
+    private string ValidateSchedule()
+    {
+        if (ScheduledDate == null || ScheduledTime == null)
+        {
+            return "Please select a valid date and time.";
+        }
+
+        var currentDateTime = DateTime.Now;
+        var selectedDateTime = ScheduledDate.Value.Date + ScheduledTime.Value;
+
+        if (selectedDateTime < currentDateTime)
+        {
+            return "The scheduled date and time must be greater than or equal to the current date and time.";
+        }
+
+        var minScheduleTime = currentDateTime.AddMinutes(20);
+        var maxScheduleTime = currentDateTime.AddDays(29);
+
+        if (selectedDateTime < minScheduleTime)
+        {
+            return "Scheduled posts need to be shared at least 20 minutes from now.";
+        }
+
+        if (selectedDateTime > maxScheduleTime)
+        {
+            return "Scheduled posts cannot be scheduled more than 29 days from now.";
+        }
+
+        return null; // No validation errors
+    }
+    private async Task PublishPost(BlazorApp_Meta_UI.Models.ScheduledPost post)
+    {
+        try
+        {
+            // Implement your logic to publish the post (text/media upload)
+            if (post.SelectedFiles.Count > 0)
+            {
+                foreach (var file in post.SelectedFiles)
+                {
+                    var imageData = new byte[file.Size];
+                    await file.OpenReadStream().ReadAsync(imageData);
+
+                    // Upload image with caption
+                    await ApiService.PostImageToFacebook(imageData, post.PostText);
+                }
+            }
+            else
+            {
+                // Upload only text
+                await ApiService.PostTextToFacebook(post.PostText);
+            }
+
+            // Notify user
+            Result = $"Post published successfully at {DateTime.Now:yyyy-MM-dd HH:mm}.";
+        }
+        catch (Exception ex)
+        {
+            Result = $"Error publishing post: {ex.Message}";
+        }
+
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        ScheduleService.OnPostPublish += PublishPost;
+    }
+    public void Dispose()
+    {
+        ScheduleService.OnPostPublish -= PublishPost; 
+    }
+
+
+}
+

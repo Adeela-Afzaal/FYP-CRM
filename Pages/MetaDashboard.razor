@@ -1,0 +1,92 @@
+﻿@page "/dashboard"
+
+<div class="dashboard">
+
+    <!-- Main content area -->
+    <div class="main-content">
+        <!-- Header component with username passed as a parameter -->
+        <Header username="quratainy1" />
+
+        <!-- Recommended actions title -->
+        <h2>Recommended actions</h2>
+        <p>Discovering a new product can be overwhelming. These recommended actions and best practices will help you to get started:</p>
+
+        <!-- Cards for actions -->
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <!-- Two cards on large screens, one card on medium and small screens -->
+                <ContentCard ImageUrl="images//MBS-Onboarding-Tour-Planner-b4b_light.png" Title="Plan your content calendar"
+                             Description="Schedule posts, stories and reels, see when your audience
+                                is most active, and view everything in your calendar." ButtonText="Go to Planner" TargetUrl="/planner" />
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <ContentCard ImageUrl="images/message-action-icon_light.png" Title="Reply to messages"
+                             Description="Save time with automations and try more tools
+                                that make it easier to stay organized." ButtonText="Go to Inbox" TargetUrl="/planner" />
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <ContentCard ImageUrl="images/Insights-b4b_80.png" Title="See what’s working best"
+                             Description="Review performance results from content you created and
+                                shared, explore trends and more." ButtonText="Go to Insights" TargetUrl="/planner" />
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <ContentCard ImageUrl="images/Funnel-b4b_80.png" Title="Manage all your ads on desktop"
+                             Description="Create and manage your ads across Instagram and Facebook together
+                                in Meta Business Suite" ButtonText="Go to Ads" TargetUrl="/planner" />
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <ContentCard ImageUrl="images/Like-b4b_40.png" Title="Connect to a Facebook Page"
+                             Description="Connect your Instagram profile to a Facebook Page to
+                                reach a wider audience." ButtonText="Connect Facebook Page" TargetUrl="/planner" />
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <ContentCard ImageUrl="images/profile-pic.jpg" Title="Continue your journey on Home"
+                             Description="See important updates, manage your marketing content and
+                                learn about the latest features in Meta Business Suite." ButtonText="Go to Home" TargetUrl="/planner" />
+            </div>
+        </div>
+
+        <h2>Best practices</h2>
+        <BestPractices />
+    </div>
+</div>
+
+<style>
+    /* Remove default padding and margin */
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Prevents extra scrollbar */
+        box-sizing: border-box;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    /* Ensure consistent box-sizing across all elements */
+    *, *::before, *::after {
+        box-sizing: inherit;
+    }
+
+    .dashboard {
+        display: flex;
+        height: 100vh; /* Full viewport height */
+        overflow: hidden; /* Prevents extra scrollbar */
+    }
+
+    .main-content {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto; /* Allows vertical scrolling if content overflows */
+        background: linear-gradient(to right, #E0F7FA, #E6E6FA); /* Light blue to light purple gradient */
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: black;
+        font-weight: bold;
+    }
+
+    p {
+        color: #333;
+    }
+</style>

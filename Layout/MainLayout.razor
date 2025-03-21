@@ -1,0 +1,39 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    <div class="container-fluid">
+        <div class="row">
+            @if (!ShouldHideSidebar)
+            {
+                <!-- Sidebar -->
+                <NavMenu />
+            }
+
+            <!-- Main Content -->
+            <main class="@MainContentClass p-3" id="mainContent">
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool ShouldHideSidebar => PagesToHideSidebar.Contains(CurrentPath, StringComparer.OrdinalIgnoreCase);
+
+    private string MainContentClass => ShouldHideSidebar ? "col-12" : "col-12 col-md-10";
+
+    private string CurrentPath => NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+
+    // List of pages or folders where the sidebar should be hidden
+    private readonly List<string> PagesToHideSidebar = new()
+    {
+        "login",
+        "signup",
+        "forgot-password",
+        "confirm-email",
+    };
+
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+}

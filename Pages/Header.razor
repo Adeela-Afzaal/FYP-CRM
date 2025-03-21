@@ -1,0 +1,66 @@
+﻿@page "/dashboard5"
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col">
+            <h2 class="starting-line">Get started with Meta Business Suite</h2>
+
+            <div class="welcome-section d-flex flex-wrap justify-content-between align-items-center p-4 rounded mb-4">
+                <div class="text-container col-lg-6 col-md-6 col-sm-12">
+                    <h2>Welcome, @username</h2>
+                    <p>Meta Business Suite helps you manage your activities across Facebook, Instagram, and messaging tools in one place.</p>
+                    <a href="#" class="learn-more-link">See how it compares</a>
+                </div>
+                <div class="image-container col-lg-6 col-md-6 col-sm-12">
+                    <img src="images/k6KXjmDPzRZ.png" alt="Meta Business Suite overview" class="img-fluid" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? username { get; set; }
+}
+
+<style>
+    .starting-line {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        color: #1c2b59;
+    }
+
+    .welcome-section {
+        background-color: #b9c3eb; /* Light purple background */
+    }
+
+    .text-container h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        color: #1c2b59;
+    }
+
+    .text-container p {
+        margin: 10px 0;
+        color: #333;
+    }
+
+    .learn-more-link {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .learn-more-link:hover {
+        text-decoration: underline;
+    }
+
+    .image-container img {
+        max-width: 100%; /* Adjust to make image responsive */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 10px; /* Adds rounded corners to the image */
+    }
+</style>

@@ -1,0 +1,121 @@
+﻿@page "/dashboard2"
+
+<div class="card col-lg-12 col-md-12 col-sm-12 mx-auto">
+    <!-- Updated to be responsive on larger screens -->
+    <div class="image-containerCard">
+        <img src="@ImageUrl" alt="Card image" class="img-fluid">
+    </div>
+    <div class="header-content">
+        <div class="card-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <h2 class="h5 mb-0">@Title</h2> <!-- Bootstrap h5 class for responsive title -->
+    </div>
+    <p class="card-text">@Description</p> <!-- Use Bootstrap card-text class -->
+    <button class="action-button @(ButtonText == "Go to Planner" ? "blue-button" : "white-button")" @onclick="NavigateTo">@ButtonText</button>
+</div>
+
+@code {
+    [Parameter] public string ImageUrl { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public string ButtonText { get; set; }
+    [Parameter] public string TargetUrl { get; set; }
+
+    [Inject] NavigationManager Navigation { get; set; }
+
+    private void NavigateTo()
+    {
+        if (!string.IsNullOrEmpty(TargetUrl))
+        {
+            Navigation.NavigateTo(TargetUrl);
+        }
+    }
+}
+
+<style>
+    .card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 10px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-containerCard {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .image-containerCard img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .card-icon {
+        width: 40px;
+        height: 40px;
+        background-color: #90EE90;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 15px;
+    }
+
+    .card-icon i {
+        font-size: 18px;
+        color: white;
+    }
+
+    .card h2 {
+        color: black;
+        font-weight: bold;
+        margin: 0; /* Remove margin around the title */
+    }
+
+    .card-text {
+        color: #666;
+        text-align: left;
+    }
+
+    .action-button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        border: 2px solid #1c2b59;
+    }
+
+    .action-button:hover {
+        background-color: #f2f2f2;
+    }
+
+    .blue-button {
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+    .blue-button:hover {
+        background-color: cornflowerblue;
+    }
+
+    .white-button {
+        background-color: white;
+        color: black;
+    }
+</style>

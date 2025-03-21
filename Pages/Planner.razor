@@ -1,0 +1,291 @@
+﻿@page "/planner"
+@using BlazorApp_Meta_UI.Services
+@using BlazorApp_Meta_UI.Models
+@inject ScheduleService ScheduleService
+
+<style>
+    td:hover {
+        background-color: #ffccbc;
+    }
+
+    td.selected {
+        color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+    }
+
+    .task-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        background: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .task-list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        background: #ffffff;
+        border-bottom: 1px solid #e0e0e0;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+        .task-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-list-item:hover {
+            background: #c8e6c9;
+            transform: scale(1.02);
+        }
+
+        .task-list-item.no-tasks {
+            text-align: center;
+            color: #757575;
+            font-style: italic;
+            background: none;
+            border: none;
+            padding: 15px;
+        }
+
+        .task-list-item button {
+            background: #ef5350;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 2px 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+    .btn-prev, .btn-next, .btn-add {
+        transition: background 0.3s, transform 0.2s;
+        background: linear-gradient(135deg, #43a047, #2e7d32);
+    }
+
+        .btn-prev:hover, .btn-next:hover, .btn-add:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-prev:active, .btn-next:active, .btn-remove:active, .btn-add:active {
+            transform: translateY(0);
+        }
+
+    small {
+        white-space: normal; /* Allows content to wrap to the next line */
+        word-wrap: break-word; /* Break long words if necessary */
+        overflow: hidden; /* Prevents overflow of the content */
+        text-align: center; /* Centers the text inside the container */
+    }
+
+</style>
+<h3>Planner</h3>
+
+<div class="planner-container d-flex flex-wrap gap-3 p-3 bg-light rounded shadow">
+    <!-- Calendar Section -->
+    <div class="calendar flex-grow-1 bg-white rounded p-3 shadow overflow-auto" style="max-height: 75vh;">
+        <h4 class="text-center">
+            <button class="btn-prev btn btn-sm btn-secondary" @onclick="ShowPreviousMonth">&lt; Prev</button>
+            @CurrentMonth.ToString("MMMM yyyy")
+            <button class="btn-next btn btn-sm btn-secondary" @onclick="ShowNextMonth">Next &gt;</button>
+        </h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    @foreach (var day in DaysOfWeek)
+                    {
+                        <th>@day</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var week in Calendar)
+                {
+                    <tr>
+                        @foreach (var date in week)
+                        {
+                            <td @onclick="() => SelectDate(date)" style="background-color:@(GetTaskHighlightClass(date))">
+                                <div>@date.Day</div>
+                                @if (Tasks.ContainsKey(date))
+                                {
+                                    <small>@Tasks[date].Count task(s)</small>
+                                }
+                                @if (ScheduledPosts.ContainsKey(date))
+                                {
+                                    <small>@ScheduledPosts[date].Count post(s) scheduled</small>
+                                }
+                            </td>
+
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Task Management Section -->
+    <div class="task-manager flex-grow-1 bg-white rounded p-3 shadow overflow-auto" style="max-height: 75vh;">
+        <h4 class="text-center">Tasks for @SelectedDate.ToString("dd MMM yyyy")</h4>
+        <ul class="task-list">
+            @if (Tasks.ContainsKey(SelectedDate))
+            {
+                @foreach (var task in Tasks[SelectedDate])
+                {
+                    <li class="task-list-item d-flex justify-content-between align-items-center" style="background-color: @(GetPriorityColor(task.Priority))">
+                        @task.Name
+                        <button class="btn-remove btn btn-sm btn-danger" @onclick="() => RemoveTask(task)">X</button>
+                    </li>
+                }
+            }
+            else
+            {
+                <li class="task-list-item no-tasks">No tasks for this day.</li>
+            }
+        </ul>
+        <div class="mt-3">
+            <input type="text" class="form-control mb-2" placeholder="New Task" @bind="NewTask" />
+            <select class="form-select mb-2" @bind="SelectedPriority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            <button class="btn-add btn btn-primary w-100" @onclick="AddTask">Add Task</button>
+        </div>
+    </div>
+</div>
+
+@foreach (var kvp in ScheduledPosts)
+{
+    Console.WriteLine($"Date: {kvp.Key}, Count: {kvp.Value.Count}");
+}
+
+
+
+@code {
+    private DateTime CurrentMonth = DateTime.Now;
+    private List<string> DaysOfWeek = new() { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+    private List<List<DateTime>> Calendar = new();
+    private DateTime SelectedDate = DateTime.Today;
+
+    private Dictionary<DateTime, List<TaskService.TaskItem>> Tasks = new();
+    private string NewTask = string.Empty;
+    private string SelectedPriority = "Low";
+
+    // Injecting TaskService into the Planner component
+    [Inject]
+    private TaskService TaskService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        GenerateCalendar(CurrentMonth);
+        // Subscribe to the OnTasksUpdated event to refresh the tasks
+        TaskService.OnTasksUpdated += StateHasChanged;
+        LoadScheduledPosts(); // Load scheduled posts automatically
+    }
+    
+
+    private void GenerateCalendar(DateTime month)
+    {
+        Calendar.Clear();
+        var firstDayOfMonth = new DateTime(month.Year, month.Month, 1);
+        var firstDayOfCalendar = firstDayOfMonth.AddDays(-(int)firstDayOfMonth.DayOfWeek);
+
+        for (int i = 0; i < 6; i++)
+        {
+            var week = new List<DateTime>();
+            for (int j = 0; j < 7; j++)
+            {
+                week.Add(firstDayOfCalendar.AddDays(i * 7 + j));
+            }
+            Calendar.Add(week);
+        }
+    }
+
+    private void SelectDate(DateTime date)
+    {
+        SelectedDate = date;
+        // Fetch tasks from the TaskService when a date is selected
+        Tasks[SelectedDate] = TaskService.GetTasks(SelectedDate);
+    }
+
+    private void AddTask()
+    {
+        if (!string.IsNullOrWhiteSpace(NewTask))
+        {
+            TaskService.AddTask(SelectedDate, NewTask, SelectedPriority);
+            NewTask = string.Empty;
+        }
+    }
+
+    private void RemoveTask(TaskService.TaskItem task)
+    {
+        TaskService.RemoveTask(SelectedDate, task);
+    }
+
+    private void ShowPreviousMonth()
+    {
+        CurrentMonth = CurrentMonth.AddMonths(-1);
+        GenerateCalendar(CurrentMonth);
+    }
+
+    private void ShowNextMonth()
+    {
+        CurrentMonth = CurrentMonth.AddMonths(1);
+        GenerateCalendar(CurrentMonth);
+    }
+
+    private string GetPriorityColor(string priority) => priority switch
+    {
+        "High" => "#ff6666",
+        "Medium" => "yellow",
+        "Low" => "#90ee90",
+        _ => "#ffffff"
+    };
+
+    private string GetTaskHighlightClass(DateTime date)
+    {
+        var normalizedDate = date.Date;
+
+        // Check for scheduled posts and highlight in pink
+        if (ScheduledPosts.ContainsKey(normalizedDate))
+        {
+            return "#FFC0CB"; // Pink for scheduled posts
+        }
+
+        // Check for tasks priority-based highlight
+        if (Tasks.ContainsKey(normalizedDate))
+        {
+            if (Tasks[normalizedDate].Any(t => t.Priority == "High")) return "#ff6666";
+            if (Tasks[normalizedDate].Any(t => t.Priority == "Medium")) return "yellow";
+            if (Tasks[normalizedDate].Any(t => t.Priority == "Low")) return "#90ee90";
+        }
+
+        return string.Empty;
+    }
+
+
+
+    private Dictionary<DateTime, List<ScheduledPost>> ScheduledPosts = new(); // Store scheduled posts
+    private void LoadScheduledPosts()
+    {
+        var currentDate = DateTime.Today;
+        var endDate = currentDate.AddDays(30); // Adjust range as needed
+
+        // Fetch scheduled posts and group by date
+        var scheduledPosts = ScheduleService.GetScheduledPosts()
+                                            .Where(post => post.ScheduledDateTime.Date >= currentDate && post.ScheduledDateTime.Date <= endDate)
+                                            .GroupBy(post => post.ScheduledDateTime.Date)
+                                            .ToDictionary(g => g.Key, g => g.ToList());
+
+        ScheduledPosts = scheduledPosts;
+
+        // Trigger UI refresh
+        StateHasChanged();
+    }
+
+}

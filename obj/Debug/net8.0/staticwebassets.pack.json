@@ -1,0 +1,125 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\obj\\Debug\\net8.0\\compressed\\xt9diflz4f.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BlazorApp Meta UI.styles.css",
+      "PackagePath": "staticwebassets\\BlazorApp Meta UI.styles.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\icon-192.png",
+      "PackagePath": "staticwebassets\\icon-192.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\Funnel-b4b_80.png",
+      "PackagePath": "staticwebassets\\images\\Funnel-b4b_80.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\Insights-b4b_80.png",
+      "PackagePath": "staticwebassets\\images\\Insights-b4b_80.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\Like-b4b_40.png",
+      "PackagePath": "staticwebassets\\images\\Like-b4b_40.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\MBS-Onboarding-Tour-Planner-b4b_light.png",
+      "PackagePath": "staticwebassets\\images\\MBS-Onboarding-Tour-Planner-b4b_light.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\Metalogo.PNG",
+      "PackagePath": "staticwebassets\\images\\Metalogo.PNG"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\Notification-bell-icon.png",
+      "PackagePath": "staticwebassets\\images\\Notification-bell-icon.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\add.png",
+      "PackagePath": "staticwebassets\\images\\add.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\audience.png",
+      "PackagePath": "staticwebassets\\images\\audience.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\heratt.png",
+      "PackagePath": "staticwebassets\\images\\heratt.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\icon.png",
+      "PackagePath": "staticwebassets\\images\\icon.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\k6KXjmDPzRZ.png",
+      "PackagePath": "staticwebassets\\images\\k6KXjmDPzRZ.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\message-action-icon_light.png",
+      "PackagePath": "staticwebassets\\images\\message-action-icon_light.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\photo.png",
+      "PackagePath": "staticwebassets\\images\\photo.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\post-action-icon_light.png",
+      "PackagePath": "staticwebassets\\images\\post-action-icon_light.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\profile-pic.jpg",
+      "PackagePath": "staticwebassets\\images\\profile-pic.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\images\\reels.png",
+      "PackagePath": "staticwebassets\\images\\reels.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\BlazorApp Meta UI\\BlazorApp Meta UI\\wwwroot\\sample-data\\weather.json",
+      "PackagePath": "staticwebassets\\sample-data\\weather.json"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BlazorApp Meta UI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.BlazorApp Meta UI.props",
+      "PackagePath": "build\\BlazorApp Meta UI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.BlazorApp Meta UI.props",
+      "PackagePath": "buildMultiTargeting\\BlazorApp Meta UI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.BlazorApp Meta UI.props",
+      "PackagePath": "buildTransitive\\BlazorApp Meta UI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
