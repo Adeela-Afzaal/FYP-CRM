@@ -1,0 +1,43 @@
+﻿@page "/upload"
+@inject HttpClient Http
+
+<InputFile OnChange="HandleFileUpload" />
+<input @bind="caption" placeholder="Enter caption" />
+<button @onclick="SubmitPost">Post to Instagram</button>
+
+@code {
+    private IBrowserFile selectedFile;
+    private string caption = "";
+
+    private void HandleFileUpload(InputFileChangeEventArgs e)
+    {
+        selectedFile = e.File;
+    }
+
+    private async Task SubmitPost()
+    {
+        var content = new MultipartFormDataContent();
+        content.Add(new StreamContent(selectedFile.OpenReadStream()), "file", selectedFile.Name);
+        content.Add(new StringContent(caption), "caption");
+
+        var uploadResponse = await Http.PostAsync("/upload", content);
+        var result = await uploadResponse.Content.ReadFromJsonAsync<UploadResult>();
+
+        if (result?.Url != null)
+        {
+            var postResponse = await Http.PostAsJsonAsync("/post-to-instagram", new
+            {
+                url = result.Url,
+                caption = result.Caption
+            });
+
+            // Handle response
+        }
+    }
+
+    public class UploadResult
+    {
+        public string Url { get; set; }
+        public string Caption { get; set; }
+    }
+}
